@@ -47,11 +47,15 @@ namespace GamesApiXunitTests
             mockGame2.
                 Setup(s => s.gameDetails.comments).
                 Returns(mockListComment2);
+            mockGame2.
+                Setup(s => s.id).
+                Returns(GAMEID);
 
             mockMongoDb = new Mock<IMongoDbContext>();
             mockMongoDb.
                 Setup(mockMongo => mockMongo.Get()).
                 Returns(new List<Game> { mockGame.Object, mockGame2.Object });
+
 
             gamesApiService = new GamesApiService(mockMongoDb.Object);
         }

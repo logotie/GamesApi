@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GamesApi.Db;
+using GamesApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,10 @@ namespace GamesApi
 
             //Singleton for db
             services.AddSingleton<IMongoDbContext, MongoDbContext>();
+
+            //Set up dependecy injection
+            services.AddScoped<IGamesApiService, GamesApiService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

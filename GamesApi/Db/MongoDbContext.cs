@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 namespace GamesApi.Db
 {
     //Db context for local mongo db instance, handles data access operations
-    public class MongoDbContext
+    public class MongoDbContext:IMongoDbContext
     {
+
     }
 }

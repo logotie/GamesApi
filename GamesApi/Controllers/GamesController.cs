@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace GamesApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GamesController : ControllerBase
     {

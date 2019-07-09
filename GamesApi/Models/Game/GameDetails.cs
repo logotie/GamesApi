@@ -7,5 +7,12 @@ namespace GamesApi.Models.Game
 {
     public class GameDetails
     {
+        public virtual string title { get; set; }
+        public virtual string description { get; set; }
+        public virtual string by { get; set; }
+        public virtual IList<string> platform { get; set; }
+        public virtual string age_rating { get; set; }
+        public virtual int likes { get; set; }
+        public virtual IList<Comment> comments { get; set; }
     }
 }

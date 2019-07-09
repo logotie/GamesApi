@@ -31,5 +31,11 @@ namespace GamesApiXunitTests
 
             Assert.True(result.Value.Equals(GamesApi.Resource.ExampleJson));
         }
+
+        [Fact]
+        public void GetByQueryParamsTest()
+        {
+            //TODO Add this test
+        }
     }
 }

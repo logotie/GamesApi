@@ -55,7 +55,21 @@ namespace GamesApiXunitTests
         [Fact]
         public void ConvertEpochToDateTest()
         {
-            //TODO Complete Test and mock the game inside the moethod
+            long epoch = 1562680316;
+            string epochDateRepresentation = "2019-07-09";
+
+            var comment = new Comment();
+            comment.dateCreated = epoch.ToString();
+
+            var game = new Game();
+            var gameDetails = new GameDetails();
+            game.gameDetails = gameDetails;
+            game.gameDetails.comments = new List<Comment> { comment };
+
+            DbHelper.FormatCommentDatesForUi(new List<Game> { game });
+
+            Assert.True(game.gameDetails.comments[0].dateCreated.Equals("2019-07-09"));
+
         }
 
     }

@@ -37,7 +37,7 @@ namespace GamesApi.Services
 
         public Game RetrieveById(int id)
         {
-            throw new NotImplementedException();
+            return context.Get().FirstOrDefault(game => game.id == id);
         }
 
         public List<Game> RetrieveByLikesGreaterThan(int minAmountOfLikes, List<Game> games)

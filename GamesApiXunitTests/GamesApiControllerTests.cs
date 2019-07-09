@@ -29,7 +29,7 @@ namespace GamesApiXunitTests
 
             var result = controller.Get(pageId);
 
-            Assert.True(result.Value.Equals(GamesApi.Resource.GamesArrayJson));
+            Assert.True(result.Value.Equals(GamesApi.Resource.ExampleJson));
         }
     }
 }

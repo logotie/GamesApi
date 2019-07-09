@@ -20,12 +20,12 @@ namespace GamesApi.Services
         public GamesApiService(IMongoDbContext mongoDbContext)
         {
             _mongoDbContext = mongoDbContext;
-            gameRetrievalService = new GameRetrievalService(_context);
+            gameRetrievalService = new GameRetrievalService(mongoDbContext);
         }
 
         public Game RetrieveGameById(int id)
         {
-            return _mongoDbContext.GetById(id);
+            return gameRetrievalService.RetrieveById(id);
         }
 
         public List<Game> SearchGamesByQueryParams(GameQueryParams query)

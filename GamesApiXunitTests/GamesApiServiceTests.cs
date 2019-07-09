@@ -1,5 +1,7 @@
 ﻿using GamesApi.Db;
 using GamesApi.Models.Game;
+using GamesApi.Models.Report;
+using GamesApi.Models.Url;
 using GamesApi.Services;
 using Moq;
 using System;
@@ -65,6 +67,41 @@ namespace GamesApiXunitTests
         {
             Game game = gamesApiService.RetrieveGameById(GAMEID);
             Assert.True(game.id == GAMEID);
+        }
+
+        [Fact]
+        public void SearchGamesTest()
+        {
+            var queryModel = new Mock<GameQueryParams>();
+            queryModel.
+                Setup(s => s.publisher).
+                Returns("SONY");
+            queryModel.
+                Setup(s => s.minAgeRating).
+                Returns(0);
+            queryModel.
+                Setup(s => s.maxAgeRating).
+                Returns(16);
+            queryModel.
+                Setup(s => s.minCommentsAmount).
+                Returns(0);
+            queryModel.
+                Setup(s => s.platform).
+                Returns(new List<string> { "XBOX ONE" });
+
+
+            List<Game> games = gamesApiService.SearchGamesByQueryParams(queryModel.Object);
+            Assert.True(games.Count == 1);
+            Assert.True(games[0].id == GAMEID2);
+
+        }
+
+        [Fact]
+        public void GenerateReportTest()
+        {
+            ReportComplete report = gamesApiService.GenerateReport();
+            Assert.True(report.highest_rated_game.Equals("TESTGAME3"));
+            Assert.True(report.user_with_most_comments.Equals("Jack"));
         }
     }
 }

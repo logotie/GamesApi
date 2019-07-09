@@ -1,16 +1,16 @@
 ﻿using GamesApi.Db;
+using GamesApi.Models;
 using GamesApi.Models.Game;
 using GamesApi.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using Xunit;
 
 namespace GamesApiXunitTests
 {
-    public class GamesRetrievalServiceTests
+    public class GameRetrievalServiceTests
     {
         private readonly IGameRetrievalService gameRetrievalService2;
         private Mock<Comment> mockComment, mockComment2, mockComment3;
@@ -25,7 +25,7 @@ namespace GamesApiXunitTests
         private readonly string PUBLISHERTHQ = "thq";
         private readonly string PLATFORMPS4 = "ps4";
         private readonly string PLATFORMXBOXONE = "xboxone";
-        public GamesRetrievalServiceTests()
+        public GameRetrievalServiceTests()
         {
             mockComment = new Mock<Comment>();
             mockComment.
@@ -82,6 +82,25 @@ namespace GamesApiXunitTests
             var mockGameRetrievalService = new Mock<IGameRetrievalService>();
             gameRetrievalService2 = new GameRetrievalService(mockMongoDb.Object);
 
+        }
+
+
+        [Fact]
+        public void GenerateAverageLikesReport()
+        {
+            mockGame.SetupGet(game => game.gameDetails.title).Returns("lego star wars");
+
+            var result = gameRetrievalService2.GenerateAvgLikesReport(mockGame.Object);
+            int averageLikesOfGame = gameRetrievalService2.GetAverageLikesOfGame(mockGame.Object);
+            Assert.True(result.title.Equals("lego star wars"));
+            Assert.True(result.average_likes == averageLikesOfGame);
+        }
+
+        [Fact]
+        public void GetAverageLikesOfGame()
+        {
+            int averageLikesOfGame = gameRetrievalService2.GetAverageLikesOfGame(mockGame.Object);
+            Assert.True(averageLikesOfGame == 7);
         }
 
         [Fact]
@@ -234,5 +253,6 @@ namespace GamesApiXunitTests
             Assert.True(comments.Count == 1);
             Assert.True(comments[0].id == GAMEID2);
         }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GamesApi.Db;
 using GamesApi.Models.Game;
+using GamesApi.Models.Report;
 
 namespace GamesApi.Services
 {
@@ -13,6 +14,16 @@ namespace GamesApi.Services
         public GameRetrievalService(IMongoDbContext _context)
         {
             context = _context;
+        }
+
+        public AvgLikesReport GenerateAvgLikesReport(Game game)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetAverageLikesOfGame(Game game)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

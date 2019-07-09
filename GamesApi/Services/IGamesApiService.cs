@@ -1,4 +1,5 @@
 ﻿using GamesApi.Models.Game;
+using GamesApi.Models.Report;
 using GamesApi.Models.Url;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace GamesApi.Services
     {
         List<Game> SearchGamesByQueryParams(GameQueryParams query);
         Game RetrieveGameById(int id);
+        ReportComplete GenerateReport();
     }
 }

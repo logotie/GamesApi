@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GamesApi.Db;
 using GamesApi.Models.Game;
+using GamesApi.Models.Report;
 using GamesApi.Models.Url;
 
 namespace GamesApi.Services
@@ -21,6 +22,11 @@ namespace GamesApi.Services
         {
             _mongoDbContext = mongoDbContext;
             gameRetrievalService = new GameRetrievalService(mongoDbContext);
+        }
+
+        public ReportComplete GenerateReport()
+        {
+            throw new NotImplementedException();
         }
 
         public Game RetrieveGameById(int id)

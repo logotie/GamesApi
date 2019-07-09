@@ -81,25 +81,47 @@ namespace GamesApi.Services
         {
             return games.Where(game => game.gameDetails.likes >= minAmountOfLikes).ToList();
         }
-
+        /// <summary>
+        /// Retrieve games that have a lower age rating than the max age
+        /// </summary>
+        /// <param name="maxAgeRating">int age rating to filter by</param>
+        /// <param name="games">Collection of games</param>
+        /// <returns></returns>
         public List<Game> RetrieveByMaxAge(int maxAgeRating, List<Game> games)
         {
-            throw new NotImplementedException();
+            return games.Where(game => Convert.ToInt32(game.gameDetails.age_rating) < maxAgeRating).
+            ToList();
         }
 
+        /// <summary>
+        /// Retrieve games that a higher age rating than the passed in int parameter
+        /// </summary>
+        /// <param name="minAgeRating">int age rating to filter by</param>
+        /// <param name="games">Collection of games</param>
+        /// <returns></returns>
         public List<Game> RetrieveByMinAge(int minAgeRating, List<Game> games)
         {
-            throw new NotImplementedException();
+            return games.Where(game => Convert.ToInt32(game.gameDetails.age_rating) >= minAgeRating).
+            ToList();
         }
 
+        /// <summary>
+        /// Retrieve games that are on the platform(s) passed in the list parameter
+        /// </summary>
+        /// <param name="platforms">list of platforms to check for</param>
+        /// <param name="games">collection of games, we must check to see whether the platform matches</param>
+        /// <returns></returns>
         public List<Game> RetrieveByPlatforms(List<string> platforms, List<Game> games)
         {
-            throw new NotImplementedException();
+            return games.Where(game => game.gameDetails.platform.Intersect(platforms, StringComparer.OrdinalIgnoreCase).
+            Any()).
+            ToList();
         }
 
         public List<Game> RetrieveByPublisher(string publisher, List<Game> games)
         {
-            throw new NotImplementedException();
+            return games.Where(game => game.gameDetails.by.Equals(publisher, StringComparison.InvariantCultureIgnoreCase))
+                    .ToList();
         }
     }
 }

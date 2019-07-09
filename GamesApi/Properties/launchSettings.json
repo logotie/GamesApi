@@ -20,7 +20,7 @@
     "GamesApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/games",
+      "launchUrl": "api/games/1",
       "applicationUrl": "http://localhost:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

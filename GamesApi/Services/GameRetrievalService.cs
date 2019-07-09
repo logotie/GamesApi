@@ -15,14 +15,29 @@ namespace GamesApi.Services
             context = _context;
         }
 
+        /// <summary>
+        /// Get games where a comment has been added after the passed epoch time parameter
+        /// </summary>
+        /// <param name="games">collection of games</param>
+        /// <param name="epochTimeAfter">unix timestamp in seconds</param>
+        /// <returns></returns>
         public List<Game> GetByCommentsAfterEpoch(List<Game> games, long epochTimeAfter)
         {
-            throw new NotImplementedException();
+            return games.Where(game => game.gameDetails.comments.
+                Any(comment => Convert.ToInt64(comment.dateCreated) > epochTimeAfter)).
+                ToList();
         }
 
+        /// <summary>
+        /// Get games that have a greater amount of comments than parameter
+        /// </summary>
+        /// <param name="games">Collection of games</param>
+        /// <param name="minAmountOfComments">the minimum amount of comments a game must have</param>
+        /// <returns></returns>
         public List<Game> GetByGreaterThanAmountOfComments(List<Game> games, int minAmountOfComments)
         {
-            throw new NotImplementedException();
+            return games.Where(game => game.gameDetails.comments.Count() > minAmountOfComments).
+            ToList();
         }
 
         public string GetUserWithMostComments(List<Game> games)
@@ -118,6 +133,12 @@ namespace GamesApi.Services
             ToList();
         }
 
+        /// <summary>
+        /// Retrieve games that were published by the publisher passed in as a string parameter
+        /// </summary>
+        /// <param name="publisher">publisher string parameter, will be checked against collection of games</param>
+        /// <param name="games">collection of games</param>
+        /// <returns></returns>
         public List<Game> RetrieveByPublisher(string publisher, List<Game> games)
         {
             return games.Where(game => game.gameDetails.by.Equals(publisher, StringComparison.InvariantCultureIgnoreCase))

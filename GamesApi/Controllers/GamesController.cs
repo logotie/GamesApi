@@ -24,13 +24,16 @@ namespace GamesApi.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<string> Get(int id)
         {
+            //Retrieve the game by using the id parameter
             Game game = gamesApiService.RetrieveGameById(id);
 
+            //If game does not exist return 404
             if (game == null)
             {
                 return BadRequest();
             }
 
+            //Return an indented json string to be displayed to the user
             String jsonString = JsonConvert.SerializeObject(game.gameDetails, Formatting.Indented);
 
             return jsonString;

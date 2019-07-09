@@ -1,6 +1,6 @@
 ﻿using GamesApi.Db;
+using GamesApi.Helper;
 using GamesApi.Models.Game;
-using GamesApi.Services;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,8 @@ using Xunit;
 
 namespace GamesApiXunitTests
 {
-    public class GamesApiServiceTests
+    public class DbHelperTests
     {
-        //Readonly because it shouldn't change
-        private readonly IGamesApiService gamesApiService;
-
         //We use Mock to quickly setup the object
         private Mock<IMongoDbContext> mockMongoDb;
         private Mock<Comment> mockComment, mockComment2, mockComment3;
@@ -23,7 +20,7 @@ namespace GamesApiXunitTests
         private readonly int GAMEID = 2;
         private readonly int GAMEID2 = 3;
 
-        public GamesApiServiceTests()
+        public DbHelperTests()
         {
             mockComment = new Mock<Comment>();
             mockComment2 = new Mock<Comment>();
@@ -53,14 +50,15 @@ namespace GamesApiXunitTests
                 Setup(mockMongo => mockMongo.Get()).
                 Returns(new List<Game> { mockGame.Object, mockGame2.Object });
 
-            gamesApiService = new GamesApiService(mockMongoDb.Object);
         }
 
         [Fact]
-        public void RetrieveGameByIdTest()
+        public void ConvertEpochToDateTest()
         {
-            Game game = gamesApiService.RetrieveGameById(GAMEID);
-            Assert.True(game.id == GAMEID);
+            //TODO Complete Test
         }
+
     }
+
+
 }

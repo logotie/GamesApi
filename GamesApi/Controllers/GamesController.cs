@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GamesApi.Models.Game;
+using GamesApi.Models.Report;
 using GamesApi.Models.Url;
 using GamesApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -78,6 +79,16 @@ namespace GamesApi.Controllers
             string jsonString = JsonConvert.SerializeObject(gameDetails, Formatting.Indented);
 
             return jsonString;
+        }
+
+        [HttpGet("/values/report")]
+        public ActionResult<string> GetReport()
+        {
+            ReportComplete report = gamesApiService.GenerateReport();
+
+            String jsonReport = JsonConvert.SerializeObject(report, Formatting.Indented);
+
+            return jsonReport;
         }
 
     }

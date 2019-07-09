@@ -67,6 +67,7 @@ namespace GamesApi.Db
             return _games.FirstOrDefault(game => game.id == id);
         }
 
+        //Converts the Json into appropriate objects that will be stored in the Mongo DB.
         private List<Game> RetrieveObjectsFromJson()
         {
             List<Game> games = JsonConvert.DeserializeObject<List<Game>>(GamesApi.Resource.GamesArrayJson);

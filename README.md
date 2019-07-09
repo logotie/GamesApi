@@ -1,6 +1,9 @@
 # GamesApi
 An Asp.Net Core Web API that provides access to games stored on a Mongo DB local instance.
 
+The different branches I made, describe the different features and stage of work I was on
+<br>
+
 The entire JSON array collection used in the app, is displayed here:
 </br>
 https://raw.githubusercontent.com/logotie/GamesApi/master/GamesApi/defaultjson.json

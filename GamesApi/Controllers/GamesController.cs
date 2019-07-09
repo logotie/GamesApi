@@ -14,7 +14,7 @@ namespace GamesApi.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
     }

@@ -10,7 +10,7 @@ namespace GamesApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values/5
+        // GET api/games/5
         [HttpGet("{id:int}")]
         public ActionResult<string> Get(int id)
         {

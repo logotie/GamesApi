@@ -7,12 +7,12 @@ namespace GamesApi.Models.Url
 {
     public class GameQueryParams
     {
-        public virtual int likesGreaterThan { get; set; }
+        public virtual int likesGreater { get; set; }
         public virtual List<String> platform { get; set; }
         public virtual String publisher { get; set; }
         public virtual String publishedAfter { get; set; }
-        public virtual int minAgeRating { get; set; }
-        public virtual int? maxAgeRating { get; set; }
-        public virtual int minCommentsAmount { get; set; }
+        public virtual int minAge { get; set; }
+        public virtual int? maxAge { get; set; }
+        public virtual int minComments { get; set; }
     }
 }

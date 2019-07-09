@@ -67,15 +67,15 @@ namespace GamesApi.Services
         public List<Game> SearchGamesByQueryParams(GameQueryParams query)
         {
             //Likes greater than search
-            var results = gameRetrievalService.RetrieveByLikesGreaterThan(query.likesGreaterThan, _mongoDbContext.Get());
+            var results = gameRetrievalService.RetrieveByLikesGreaterThan(query.likesGreater, _mongoDbContext.Get());
 
             //Publisher search
             if (query.publisher != null)
                 results = gameRetrievalService.RetrieveByPublisher(query.publisher, results);
 
             //age rating max age search
-            if (query.maxAgeRating != null)
-                results = gameRetrievalService.RetrieveByMaxAge(query.maxAgeRating.Value, results);
+            if (query.maxAge != null)
+                results = gameRetrievalService.RetrieveByMaxAge(query.maxAge.Value, results);
 
             //Platform search
             if (query.platform != null)
@@ -86,10 +86,10 @@ namespace GamesApi.Services
                 results = gameRetrievalService.GetByCommentsAfterEpoch(results, Convert.ToInt64(query.publishedAfter));
 
             //age rating range minimum search
-            results = gameRetrievalService.RetrieveByMinAge(query.minAgeRating, results);
+            results = gameRetrievalService.RetrieveByMinAge(query.minAge, results);
 
             //amount of comments search
-            results = gameRetrievalService.GetByGreaterThanAmountOfComments(results, query.minCommentsAmount);
+            results = gameRetrievalService.GetByGreaterThanAmountOfComments(results, query.minComments);
 
             return results;
         }

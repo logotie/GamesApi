@@ -131,13 +131,13 @@ namespace GamesApiXunitTests
                 Setup(s => s.publisher).
                 Returns("SONY");
             queryModel.
-                Setup(s => s.minAgeRating).
+                Setup(s => s.minAge).
                 Returns(0);
             queryModel.
-                Setup(s => s.maxAgeRating).
+                Setup(s => s.maxAge).
                 Returns(16);
             queryModel.
-                Setup(s => s.minCommentsAmount).
+                Setup(s => s.minComments).
                 Returns(0);
             queryModel.
                 Setup(s => s.platform).

@@ -14,11 +14,13 @@ namespace GamesApi.Services
     public class GamesApiService : IGamesApiService
     {
         private readonly IMongoDbContext _mongoDbContext;
+        private readonly GameRetrievalService gameRetrievalService;
 
         //Initialize with the MongoDbContext, we use an interface so it can be injected.
         public GamesApiService(IMongoDbContext mongoDbContext)
         {
             _mongoDbContext = mongoDbContext;
+            gameRetrievalService = new GameRetrievalService(_context);
         }
 
         public Game RetrieveGameById(int id)

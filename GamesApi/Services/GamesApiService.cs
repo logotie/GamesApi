@@ -23,7 +23,7 @@ namespace GamesApi.Services
 
         public Game RetrieveGameById(int id)
         {
-            throw new NotImplementedException();
+            return _mongoDbContext.GetById(id);
         }
 
         public List<Game> SearchGamesByQueryParams(GameQueryParams query)

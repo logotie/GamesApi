@@ -81,7 +81,7 @@ namespace GamesApi.Controllers
             return jsonString;
         }
 
-        [HttpGet("/values/report")]
+        [HttpGet("/games/report")]
         public ActionResult<string> GetReport()
         {
             ReportComplete report = gamesApiService.GenerateReport();

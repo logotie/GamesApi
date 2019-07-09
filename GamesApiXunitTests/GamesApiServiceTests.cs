@@ -25,10 +25,24 @@ namespace GamesApiXunitTests
         private readonly int GAMEID = 2;
         private readonly int GAMEID2 = 3;
 
+        private readonly string PUBLISHERSONY = "SONY";
+        private readonly string PUBLISHERMICROSOFT = "microsoft";
+        private readonly string PUBLISHERTHQ = "thq";
+        private readonly string PLATFORMPS4 = "ps4";
+        private readonly string PLATFORMXBOXONE = "xboxone";
+
         public GamesApiServiceTests()
         {
             mockComment = new Mock<Comment>();
+            mockComment.
+                Setup(s => s.like).
+                Returns(5);
+
             mockComment2 = new Mock<Comment>();
+            mockComment2.
+                Setup(s => s.like).
+                Returns(9);
+
             mockComment3 = new Mock<Comment>();
 
             mockListComment = new List<Comment>
@@ -41,25 +55,65 @@ namespace GamesApiXunitTests
                 mockComment3.Object
             };
 
+            mockComment3.
+                Setup(s => s.like).
+                Returns(200);
+
+            mockComment.
+                SetupGet(comment => comment.user).
+                Returns("Robert");
+
+            mockComment2.
+                SetupGet(comment => comment.user).
+                Returns("Jack");
+
+            mockComment3.
+                SetupGet(comment => comment.user).
+                Returns("Jack");
+
             mockGame = new Mock<Game>();
             mockGame.
                 Setup(s => s.gameDetails.comments).
                 Returns(mockListComment);
+            mockGame.
+                SetupGet(s => s.id).
+                Returns(GAMEID);
+            mockGame.
+                SetupGet(s => s.gameDetails.by).
+                Returns(PUBLISHERTHQ);
+
+            mockGame.
+                SetupGet(s => s.gameDetails.age_rating).
+                Returns("12");
+
             mockGame2 = new Mock<Game>();
             mockGame2.
                 Setup(s => s.gameDetails.comments).
                 Returns(mockListComment2);
             mockGame2.
-                Setup(s => s.id).
-                Returns(GAMEID);
+                Setup(s => s.gameDetails.title).
+                Returns("TESTGAME3");
+            mockGame2.
+                SetupGet(s => s.id).
+                Returns(GAMEID2);
+            mockGame2.
+                SetupGet(s => s.gameDetails.by).
+                Returns(PUBLISHERSONY);
+            mockGame2.
+                SetupGet(s => s.gameDetails.platform).
+                Returns(new List<string> { "XBOX ONE" });
+            mockGame2.
+                SetupGet(s => s.gameDetails.age_rating).
+                Returns("15");
 
             mockMongoDb = new Mock<IMongoDbContext>();
             mockMongoDb.
                 Setup(mockMongo => mockMongo.Get()).
                 Returns(new List<Game> { mockGame.Object, mockGame2.Object });
 
-
+            var mockGameRetrievalService = new Mock<IGameRetrievalService>();
             gamesApiService = new GamesApiService(mockMongoDb.Object);
+
         }
 
         [Fact]

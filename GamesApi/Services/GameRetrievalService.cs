@@ -16,14 +16,44 @@ namespace GamesApi.Services
             context = _context;
         }
 
+        /// <summary>
+        /// Generates a report that contains the average likes of a game
+        /// </summary>
+        /// <param name="game"> The game object to use to generate the report</param>
+        /// <returns>avg report using title and average likes in the report</returns>
         public AvgLikesReport GenerateAvgLikesReport(Game game)
         {
-            throw new NotImplementedException();
+            AvgLikesReport avgReport = new AvgLikesReport();
+            avgReport.title = game.gameDetails.title;
+            avgReport.average_likes = GetAverageLikesOfGame(game);
+            return avgReport;
         }
 
+        /// <summary>
+        ///  Get the average likes by adding the like amount of each comment
+        ///  and dividing the amount of comments.
+        /// </summary>
+        /// <param name="game">Game object to retrieve average likes of game</param>
+        /// <returns></returns>
         public int GetAverageLikesOfGame(Game game)
         {
-            throw new NotImplementedException();
+            //Get all counts
+            var comments = game.gameDetails.comments;
+
+            //Keep count and total
+            int count = 0;
+            int total = 0;
+
+            foreach (Comment comment in comments)
+            {
+                count++;
+                //Keep a running total
+                total = total + comment.like;
+            }
+
+            int a = total / count;
+
+            return a;
         }
 
         /// <summary>
@@ -51,9 +81,40 @@ namespace GamesApi.Services
             ToList();
         }
 
+        /// <summary>
+        /// Get the user with the most comments, looping through each comment in each game and keeping a count
+        /// </summary>
+        /// <param name="games"></param>
+        /// <returns></returns>
         public string GetUserWithMostComments(List<Game> games)
         {
-            throw new NotImplementedException();
+            //Keep the count of each user and the amount of comments added by the user
+            Dictionary<string, int> userAndCommentCount = new Dictionary<string, int>();
+
+            foreach (Game game in context.Get())
+            {
+                //Go through each comment in each game
+                foreach (Comment comment in game.gameDetails.comments)
+                {
+                    string user = comment.user;
+                    //If the user has been encountered already, just increment the count
+                    if (userAndCommentCount.ContainsKey(user))
+                    {
+                        int value = userAndCommentCount[user];
+                        userAndCommentCount[user] = value + 1;
+                    }
+                    else
+                    {
+                        //Create a new user
+                        userAndCommentCount.Add(user, 1);
+                    }
+                }
+            }
+
+            //Sort by descending and retrieve the first value
+            var ordered = userAndCommentCount.OrderByDescending(x => x.Value).FirstOrDefault().Key;
+
+            return ordered;
         }
         /// <summary>
         /// Retrieves the game that has the highest sum of likes from all comments

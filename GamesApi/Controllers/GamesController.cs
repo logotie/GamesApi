@@ -8,7 +8,7 @@ namespace GamesApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class GamesController : ControllerBase
     {
         // GET api/games/5
         [HttpGet("{id:int}")]
